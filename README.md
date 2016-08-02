@@ -1,6 +1,6 @@
 WebApp on Apache Mesos
 ======================
-Deploy simple webapp with upload functionality on Docker and Apache Mesos
+Deploy simple webapp with upload functionality on Docker and Apache Mesos.
 
 Prerequisites
 --------------------------
@@ -10,12 +10,12 @@ Prerequisites
 
 Install virtual servers
 --------------------------
-Clone project repository
+Clone project repository:
 ```console
 git clone https://github.com/maggnus/marathon_cluster_vagrant.git
 cd marathon_cluster_vagrant
 ```
-Check configuration file `etc/cluster_config.yml`
+Check configuration file `etc/cluster_config.yml`:
 ```yaml
 ---
 box_name: "ubuntu/trusty64"
@@ -61,7 +61,7 @@ servers:
     ip: 172.17.8.201
     role: "slave"
 ```
-Deploy virtual servers with `Vagrantfile`
+Deploy virtual servers with `Vagrantfile`:
 ```console
 vagrant up
 ```
@@ -96,19 +96,20 @@ slave-1
 
 Create simple WebApp container
 --------------------------
-WebApp it's simple Noje.js application which can store upload files to particular filder.
+WebApp it's simple Noje.js application which can store upload files to particular folder.
+The source files can be found in `webapp` folder.
 
 ![WebApp](https://raw.githubusercontent.com/maggnus/marathon_cluster_vagrant/master/doc/images/02_webapp.png)
 
-You can pull prepered image form Docker Hub.
+You can pull prepered image form Docker Hub:
 ```console
 docker pull maggnus/webapp
 ```
-Build docker container (OPTIONAL)
+Build docker container (OPTIONAL):
 ```
 docker build -t maggnus/webapp webapp/
 ```
-Run container in interactive mode for testing application
+Run container in interactive mode for testing application:
 ```console
 docker run -it --rm -p 3000:3000 -v /opt/upload:/usr/src/app/public/upload --name webapp maggnus/webapp
 ```
@@ -116,14 +117,14 @@ docker run -it --rm -p 3000:3000 -v /opt/upload:/usr/src/app/public/upload --nam
 
 Start WebApp in Mesos cluster
 --------------------------
-Open Maraphon web UI with one of the master servers
+Open Maraphon web UI with one of the master servers.
 ```
 http://master-1:8080/
 http://master-2:8080/
 ```
 ![Maraphon](https://raw.githubusercontent.com/maggnus/marathon_cluster_vagrant/master/doc/images/03_maraphon.png)
 
-Deploy WebApp application with Docker image `maggnus/webapp`
+Deploy WebApp application with Docker image `maggnus/webapp`:
 ```json
 {
   "id": "webapp",
@@ -158,6 +159,6 @@ Deploy WebApp application with Docker image `maggnus/webapp`
   "env": {}
 }
 ```
-Open WebApp with assigned port
+Open WebApp with assigned port.
 
 ![Open WebApp](https://raw.githubusercontent.com/maggnus/marathon_cluster_vagrant/master/doc/images/04_port.png)
